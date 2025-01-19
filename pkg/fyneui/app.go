@@ -48,6 +48,7 @@ func (a *App) activate() {
 
 	a.mainWindow.SetSpeed(22)
 	a.mainWindow.SetPitch(700)
+	a.mainWindow.SetWordsPerPhrase(1)
 	a.mainWindow.Reset()
 }
 

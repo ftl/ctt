@@ -31,8 +31,9 @@ type Trainer struct {
 	report Report
 	corpus Corpus
 
-	minLength int
-	maxLength int
+	minLength      int
+	maxLength      int
+	wordsPerPhrase int
 
 	currentPhrase string
 	currentTry    int
@@ -40,9 +41,10 @@ type Trainer struct {
 
 func NewTrainer(player Player) *Trainer {
 	return &Trainer{
-		player: player,
-		report: &nullReport{},
-		corpus: &nullCorpus{},
+		player:         player,
+		report:         &nullReport{},
+		corpus:         &nullCorpus{},
+		wordsPerPhrase: 1,
 	}
 }
 
@@ -65,6 +67,14 @@ func (t *Trainer) SetMinLength(minLength int) {
 
 func (t *Trainer) SetMaxLength(maxLength int) {
 	t.maxLength = maxLength
+}
+
+func (t *Trainer) SetWordsPerPhrase(wordsPerPhrase int) {
+	if wordsPerPhrase < 1 {
+		t.wordsPerPhrase = 1
+	} else {
+		t.wordsPerPhrase = wordsPerPhrase
+	}
 }
 
 func (t *Trainer) Eval(s string) {
@@ -100,12 +110,18 @@ func (t *Trainer) reportAttempt(attempt Attempt) {
 }
 
 func (t *Trainer) Next() {
-	t.currentPhrase = t.pickNextPhrase()
+	t.currentPhrase = ""
+	for _ = range t.wordsPerPhrase {
+		if t.currentPhrase != "" {
+			t.currentPhrase += " "
+		}
+		t.currentPhrase += t.pickNextWord()
+	}
 	t.currentTry = 0
 	t.Repeat()
 }
 
-func (t *Trainer) pickNextPhrase() string {
+func (t *Trainer) pickNextWord() string {
 	result := ""
 	nextPhraseOK := false
 	tries := 0

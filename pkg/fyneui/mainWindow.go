@@ -27,6 +27,7 @@ type Trainer interface {
 	Eval(string)
 	SetMinLength(int)
 	SetMaxLength(int)
+	SetWordsPerPhrase(int)
 }
 
 type mainWindow struct {
@@ -38,10 +39,11 @@ type mainWindow struct {
 	output     *widget.RichText
 	outputText string
 
-	speed     binding.Int
-	pitch     binding.Int
-	minLength binding.Int
-	maxLength binding.Int
+	speed          binding.Int
+	pitch          binding.Int
+	minLength      binding.Int
+	maxLength      binding.Int
+	wordsPerPhrase binding.Int
 }
 
 func setupMainWindow(window fyne.Window, controller MainWindowController) *mainWindow {
@@ -66,6 +68,8 @@ func setupMainWindow(window fyne.Window, controller MainWindowController) *mainW
 	result.minLength.AddListener(binding.NewDataListener(result.minLengthChanged))
 	result.maxLength = binding.NewInt()
 	result.maxLength.AddListener(binding.NewDataListener(result.maxLengthChanged))
+	result.wordsPerPhrase = binding.NewInt()
+	result.wordsPerPhrase.AddListener(binding.NewDataListener(result.wordsPerPhraseChanged))
 
 	root := container.NewBorder(
 		container.NewGridWithColumns(2,
@@ -73,6 +77,7 @@ func setupMainWindow(window fyne.Window, controller MainWindowController) *mainW
 			container.NewBorder(nil, nil, widget.NewLabel("Pitch:"), widget.NewLabel("Hz"), widget.NewEntryWithData(binding.IntToString(result.pitch))),
 			container.NewBorder(nil, nil, widget.NewLabel("min. Length:"), widget.NewLabel("Characters"), widget.NewEntryWithData(binding.IntToString(result.minLength))),
 			container.NewBorder(nil, nil, widget.NewLabel("max. Length:"), widget.NewLabel("Characters"), widget.NewEntryWithData(binding.IntToString(result.maxLength))),
+			container.NewBorder(nil, nil, widget.NewLabel("Words per Phrase:"), nil, widget.NewEntryWithData(binding.IntToString(result.wordsPerPhrase))),
 		), // top
 		container.NewBorder(nil, nil, widget.NewLabel("Input:"), nil, result.input), // bottom
 		nil, // left
@@ -158,6 +163,15 @@ func (w *mainWindow) SetMaxLength(maxLength int) {
 func (w *mainWindow) maxLengthChanged() {
 	maxLength, _ := w.maxLength.Get()
 	w.trainer.SetMaxLength(maxLength)
+}
+
+func (w *mainWindow) SetWordsPerPhrase(wordsPerPhrase int) {
+	w.wordsPerPhrase.Set(wordsPerPhrase)
+}
+
+func (w *mainWindow) wordsPerPhraseChanged() {
+	wordsPerPhrase, _ := w.wordsPerPhrase.Get()
+	w.trainer.SetWordsPerPhrase(wordsPerPhrase)
 }
 
 func (w *mainWindow) SelectOpenFile(callback func(string, error), title string, dir string, extensions ...string) {
