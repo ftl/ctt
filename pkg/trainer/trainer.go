@@ -111,7 +111,7 @@ func (t *Trainer) reportAttempt(attempt Attempt) {
 
 func (t *Trainer) Next() {
 	t.currentPhrase = ""
-	for _ = range t.wordsPerPhrase {
+	for range t.wordsPerPhrase {
 		if t.currentPhrase != "" {
 			t.currentPhrase += " "
 		}
