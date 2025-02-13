@@ -10,14 +10,16 @@ import (
 )
 
 type PAPlayer struct {
-	speed int
-	pitch int
+	speed      int
+	farnsworth int
+	pitch      int
 }
 
 func NewPAPlayer(speed, pitch int) *PAPlayer {
 	return &PAPlayer{
-		speed: speed,
-		pitch: pitch,
+		speed:      speed,
+		farnsworth: 0,
+		pitch:      pitch,
 	}
 }
 
@@ -25,6 +27,7 @@ func (p *PAPlayer) Play(text string) {
 	ctx := context.Background()
 
 	modulator := cw.NewModulator(float64(p.pitch), p.speed)
+	modulator.SetFarnsworthWPM(p.farnsworth)
 	modulator.AbortWhenDone(ctx.Done())
 
 	oscillator, err := pa.NewOscillator()
@@ -47,6 +50,10 @@ func (p *PAPlayer) Play(text string) {
 
 func (p *PAPlayer) SetSpeed(speed int) {
 	p.speed = speed
+}
+
+func (p *PAPlayer) SetFarnsworth(fwpm int) {
+	p.farnsworth = fwpm
 }
 
 func (p *PAPlayer) SetPitch(pitch int) {

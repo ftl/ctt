@@ -20,6 +20,7 @@ type MainWindowController interface {
 
 type Player interface {
 	SetSpeed(int)
+	SetFarnsworth(int)
 	SetPitch(int)
 }
 
@@ -40,6 +41,7 @@ type mainWindow struct {
 	outputText string
 
 	speed          binding.Int
+	farnsworth     binding.Int
 	pitch          binding.Int
 	minLength      binding.Int
 	maxLength      binding.Int
@@ -62,6 +64,8 @@ func setupMainWindow(window fyne.Window, controller MainWindowController) *mainW
 
 	result.speed = binding.NewInt()
 	result.speed.AddListener(binding.NewDataListener(result.speedChanged))
+	result.farnsworth = binding.NewInt()
+	result.farnsworth.AddListener(binding.NewDataListener(result.farnsworthChanged))
 	result.pitch = binding.NewInt()
 	result.pitch.AddListener(binding.NewDataListener(result.pitchChanged))
 	result.minLength = binding.NewInt()
@@ -74,10 +78,11 @@ func setupMainWindow(window fyne.Window, controller MainWindowController) *mainW
 	root := container.NewBorder(
 		container.NewGridWithColumns(2,
 			container.NewBorder(nil, nil, widget.NewLabel("Speed:"), widget.NewLabel("WpM"), widget.NewEntryWithData(binding.IntToString(result.speed))),
+			container.NewBorder(nil, nil, widget.NewLabel("Farnsworth:"), widget.NewLabel("WpM"), widget.NewEntryWithData(binding.IntToString(result.farnsworth))),
 			container.NewBorder(nil, nil, widget.NewLabel("Pitch:"), widget.NewLabel("Hz"), widget.NewEntryWithData(binding.IntToString(result.pitch))),
+			container.NewBorder(nil, nil, widget.NewLabel("Words per Phrase:"), nil, widget.NewEntryWithData(binding.IntToString(result.wordsPerPhrase))),
 			container.NewBorder(nil, nil, widget.NewLabel("min. Length:"), widget.NewLabel("Characters"), widget.NewEntryWithData(binding.IntToString(result.minLength))),
 			container.NewBorder(nil, nil, widget.NewLabel("max. Length:"), widget.NewLabel("Characters"), widget.NewEntryWithData(binding.IntToString(result.maxLength))),
-			container.NewBorder(nil, nil, widget.NewLabel("Words per Phrase:"), nil, widget.NewEntryWithData(binding.IntToString(result.wordsPerPhrase))),
 		), // top
 		container.NewBorder(nil, nil, widget.NewLabel("Input:"), nil, result.input), // bottom
 		nil, // left
@@ -136,6 +141,11 @@ func (w *mainWindow) SetSpeed(speed int) {
 func (w *mainWindow) speedChanged() {
 	speed, _ := w.speed.Get()
 	w.player.SetSpeed(speed)
+}
+
+func (w *mainWindow) farnsworthChanged() {
+	fwpm, _ := w.farnsworth.Get()
+	w.player.SetFarnsworth(fwpm)
 }
 
 func (w *mainWindow) SetPitch(pitch int) {
