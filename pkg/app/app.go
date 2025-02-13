@@ -33,7 +33,7 @@ func NewApp() *App {
 		UI:      &nullUI{},
 	}
 
-	result.PAPlayer = player.NewPAPlayer(22, 770)
+	result.PAPlayer = player.NewPAPlayer(31, 770)
 	result.Trainer = trainer.NewTrainer(result.PAPlayer)
 
 	result.wordlist = corpus.LoadDefaultTextAsWordlist()

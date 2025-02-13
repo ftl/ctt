@@ -46,7 +46,7 @@ func (a *App) activate() {
 	a.mainMenu = setupMainMenu(a.controller)
 	a.mainWindow.SetMainMenu(a.mainMenu.root)
 
-	a.mainWindow.SetSpeed(22)
+	a.mainWindow.SetSpeed(31)
 	a.mainWindow.SetPitch(700)
 	a.mainWindow.SetWordsPerPhrase(1)
 	a.mainWindow.Reset()
