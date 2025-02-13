@@ -1,6 +1,6 @@
 # Clear Text Trainer
 
-Learn and train ear-reading morse code clear text transmissions.
+Learn and train head-reading morse code clear text transmissions.
 
 ## License
 
