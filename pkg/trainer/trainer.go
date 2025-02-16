@@ -20,6 +20,7 @@ type Attempt struct {
 	CorrectPhrase string
 	GivenPhrase   string
 	Try           int
+	Discarded     bool
 }
 
 func (r Attempt) Success() bool {
@@ -107,6 +108,22 @@ func (t *Trainer) reportAttempt(attempt Attempt) {
 	}
 
 	t.report.Add(attempt)
+}
+
+func (t *Trainer) DiscardPhrase() {
+	if t.starting() {
+		t.Next()
+		return
+	}
+
+	attempt := Attempt{
+		CorrectPhrase: t.currentPhrase,
+		Try:           t.currentTry,
+		Discarded:     true,
+	}
+	t.reportAttempt(attempt)
+
+	t.Next()
 }
 
 func (t *Trainer) Next() {
