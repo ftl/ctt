@@ -37,17 +37,24 @@ func LoadTextAsWordlist(r io.Reader) ([]string, error) {
 }
 
 func extractWords(s string) []string {
-	words := strings.Fields(s)
-	for i, word := range words {
+	rawWords := strings.Fields(s)
+	result := make([]string, 0, len(rawWords))
+	for _, word := range rawWords {
 		word = strings.ToLower(word)
 		parts := strings.FieldsFunc(word, func(r rune) bool {
-			return !unicode.IsLetter(r)
+			return !(unicode.IsLetter(r) || unicode.IsDigit(r))
 		})
 		word = strings.Join(parts, "")
 		word = strings.ReplaceAll(word, "ß", "ss")
+		if word == "" {
+			continue
+		}
+		if strings.ContainsFunc(word, unicode.IsDigit) {
+			continue
+		}
 
-		words[i] = word
+		result = append(result, word)
 	}
 
-	return words
+	return result
 }

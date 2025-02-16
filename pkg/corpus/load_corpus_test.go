@@ -44,6 +44,11 @@ func TestLoadTestAsWordlist(t *testing.T) {
 			input:    "Futter'n wie bei Mutter'n", // kudos: http://www.deppenapostroph.info/wp-content/uploads/Futter-wie-bei-Muttern.jpg
 			expected: []string{"futtern", "wie", "bei", "muttern"},
 		},
+		{
+			name:     "expressions with numbers",
+			input:    "1 e2e [1]",
+			expected: []string{},
+		},
 	}
 
 	for _, test := range tests {
