@@ -16,17 +16,6 @@ type Corpus interface {
 	NextPhrase() string
 }
 
-type Attempt struct {
-	CorrectPhrase string
-	GivenPhrase   string
-	Try           int
-	Discarded     bool
-}
-
-func (r Attempt) Success() bool {
-	return (r.CorrectPhrase == r.GivenPhrase)
-}
-
 type Trainer struct {
 	player Player
 	report Report
