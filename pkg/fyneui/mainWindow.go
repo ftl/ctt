@@ -26,6 +26,7 @@ type Player interface {
 
 type Trainer interface {
 	Eval(string)
+	DiscardPhrase()
 	SetMinLength(int)
 	SetMaxLength(int)
 	SetWordsPerPhrase(int)
@@ -37,6 +38,7 @@ type mainWindow struct {
 	player  Player
 
 	input      *widget.Entry
+	discard    *widget.Button
 	output     *widget.RichText
 	outputText string
 
@@ -58,6 +60,7 @@ func setupMainWindow(window fyne.Window, controller MainWindowController) *mainW
 
 	result.input = widget.NewEntry()
 	result.input.OnSubmitted = result.inputSubmitted
+	result.discard = widget.NewButton("Discard", result.trainer.DiscardPhrase)
 	result.output = widget.NewRichText()
 	result.output.Wrapping = fyne.TextWrapWord
 	result.output.Scroll = 2 // widget.ScrollVerticalOnly
@@ -84,7 +87,7 @@ func setupMainWindow(window fyne.Window, controller MainWindowController) *mainW
 			container.NewBorder(nil, nil, widget.NewLabel("min. Length:"), widget.NewLabel("Characters"), widget.NewEntryWithData(binding.IntToString(result.minLength))),
 			container.NewBorder(nil, nil, widget.NewLabel("max. Length:"), widget.NewLabel("Characters"), widget.NewEntryWithData(binding.IntToString(result.maxLength))),
 		), // top
-		container.NewBorder(nil, nil, widget.NewLabel("Input:"), nil, result.input), // bottom
+		container.NewBorder(nil, nil, widget.NewLabel("Input:"), result.discard, result.input), // bottom
 		nil, // left
 		nil, // right
 		container.NewBorder(widget.NewLabel("Output:"), nil, nil, nil, result.output), // center
