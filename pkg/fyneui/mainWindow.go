@@ -116,10 +116,7 @@ func (w *mainWindow) Reset() {
 }
 
 func (w *mainWindow) Add(attempt trainer.Attempt) {
-	md := attempt.GivenPhrase
-	if attempt.Try > 1 {
-		md += fmt.Sprintf("(%d)", attempt.Try)
-	}
+	md := attempt.String()
 	if !attempt.Success() {
 		md = fmt.Sprintf("*%s*", md)
 	}
