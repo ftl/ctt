@@ -8,8 +8,10 @@ import (
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/data/binding"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/storage"
 	"fyne.io/fyne/v2/widget"
+
 	"github.com/ftl/ctt/pkg/trainer"
 )
 
@@ -26,6 +28,7 @@ type Player interface {
 
 type Trainer interface {
 	Eval(string)
+	DiscardPhrase()
 	SetMinLength(int)
 	SetMaxLength(int)
 	SetWordsPerPhrase(int)
@@ -36,7 +39,8 @@ type mainWindow struct {
 	trainer Trainer
 	player  Player
 
-	input      *widget.Entry
+	input      *EntryWithShortcuts
+	discard    *widget.Button
 	output     *widget.RichText
 	outputText string
 
@@ -56,8 +60,23 @@ func setupMainWindow(window fyne.Window, controller MainWindowController) *mainW
 	}
 	result.window.SetMaster()
 
-	result.input = widget.NewEntry()
+	discardPhraseShortcut := &desktop.CustomShortcut{KeyName: fyne.KeyD, Modifier: fyne.KeyModifierControl}
+	result.window.Canvas().AddShortcut(
+		discardPhraseShortcut,
+		func(_ fyne.Shortcut) {
+			result.trainer.DiscardPhrase()
+		},
+	)
+
+	result.input = NewEntryWithShortcuts()
 	result.input.OnSubmitted = result.inputSubmitted
+	result.input.AddShortcut(
+		discardPhraseShortcut,
+		func(_ fyne.Shortcut) {
+			result.trainer.DiscardPhrase()
+		},
+	)
+	result.discard = widget.NewButton("Discard", result.trainer.DiscardPhrase)
 	result.output = widget.NewRichText()
 	result.output.Wrapping = fyne.TextWrapWord
 	result.output.Scroll = 2 // widget.ScrollVerticalOnly
@@ -84,7 +103,7 @@ func setupMainWindow(window fyne.Window, controller MainWindowController) *mainW
 			container.NewBorder(nil, nil, widget.NewLabel("min. Length:"), widget.NewLabel("Characters"), widget.NewEntryWithData(binding.IntToString(result.minLength))),
 			container.NewBorder(nil, nil, widget.NewLabel("max. Length:"), widget.NewLabel("Characters"), widget.NewEntryWithData(binding.IntToString(result.maxLength))),
 		), // top
-		container.NewBorder(nil, nil, widget.NewLabel("Input:"), nil, result.input), // bottom
+		container.NewBorder(nil, nil, widget.NewLabel("Input:"), result.discard, result.input), // bottom
 		nil, // left
 		nil, // right
 		container.NewBorder(widget.NewLabel("Output:"), nil, nil, nil, result.output), // center
@@ -116,10 +135,7 @@ func (w *mainWindow) Reset() {
 }
 
 func (w *mainWindow) Add(attempt trainer.Attempt) {
-	md := attempt.GivenPhrase
-	if attempt.Try > 1 {
-		md += fmt.Sprintf("(%d)", attempt.Try)
-	}
+	md := attempt.String()
 	if !attempt.Success() {
 		md = fmt.Sprintf("*%s*", md)
 	}

@@ -48,6 +48,22 @@ func TestIncorrectValueIsReported(t *testing.T) {
 	assert.Equal(t, "current", trainer.currentPhrase)
 }
 
+func TestDiscardCurrentPhrase(t *testing.T) {
+	trainer, player, report, corpus := setupMockedTrainer()
+	trainer.currentPhrase = "current"
+	trainer.currentTry = 1
+
+	discardedAttempt := Attempt{CorrectPhrase: "current", Try: 1, Discarded: true}
+	report.On("Add", discardedAttempt).Once().Return()
+	corpus.On("NextPhrase").Once().Return("next")
+	player.On("Play", "next").Once().Return()
+
+	trainer.DiscardPhrase()
+
+	report.AssertExpectations(t)
+	assert.Equal(t, "next", trainer.currentPhrase)
+}
+
 // helpers
 
 func setupMockedTrainer() (*Trainer, *mockPlayer, *mockReport, *mockCorpus) {
