@@ -8,8 +8,10 @@ import (
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/data/binding"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/storage"
 	"fyne.io/fyne/v2/widget"
+
 	"github.com/ftl/ctt/pkg/trainer"
 )
 
@@ -37,7 +39,7 @@ type mainWindow struct {
 	trainer Trainer
 	player  Player
 
-	input      *widget.Entry
+	input      *EntryWithShortcuts
 	discard    *widget.Button
 	output     *widget.RichText
 	outputText string
@@ -58,8 +60,22 @@ func setupMainWindow(window fyne.Window, controller MainWindowController) *mainW
 	}
 	result.window.SetMaster()
 
-	result.input = widget.NewEntry()
+	discardPhraseShortcut := &desktop.CustomShortcut{KeyName: fyne.KeyD, Modifier: fyne.KeyModifierControl}
+	result.window.Canvas().AddShortcut(
+		discardPhraseShortcut,
+		func(_ fyne.Shortcut) {
+			result.trainer.DiscardPhrase()
+		},
+	)
+
+	result.input = NewEntryWithShortcuts()
 	result.input.OnSubmitted = result.inputSubmitted
+	result.input.AddShortcut(
+		discardPhraseShortcut,
+		func(_ fyne.Shortcut) {
+			result.trainer.DiscardPhrase()
+		},
+	)
 	result.discard = widget.NewButton("Discard", result.trainer.DiscardPhrase)
 	result.output = widget.NewRichText()
 	result.output.Wrapping = fyne.TextWrapWord
