@@ -82,8 +82,8 @@ github.com/fsnotify/fsnotify v1.7.0 h1:8JEhPFa5W2WU7YfeZzPNqzMP6Lwt7L2715Ggo0nos
 github.com/fsnotify/fsnotify v1.7.0/go.mod h1:40Bi/Hjc2AVfZrqy+aj+yEI+/bRxZnMJyTJwOpGvigM=
 github.com/ftl/digimodes v0.1.2 h1:lx4ZKhaFqng/ylPyexMV3KiUjnd+53YoWId0EmKn6R0=
 github.com/ftl/digimodes v0.1.2/go.mod h1:riVoxKI2Q/Nyx2eLXVA+NNANhebefQEPEj14gBgH6dc=
-github.com/ftl/patrix v0.1.0 h1:cwxZo3k3sne0MkSaLuJ9+bbhpFblakFW+S3dR2JWr+4=
-github.com/ftl/patrix v0.1.0/go.mod h1:p3VidYfcDcZGCPuTuYEdHFKB+Wa2SP74Qi8aqp4JjMg=
+github.com/ftl/patrix v0.2.0 h1:vMjGEwG3qQ64Lgis4OmCBVjUr3DkPBsqWtGdFqVgmLg=
+github.com/ftl/patrix v0.2.0/go.mod h1:NiM6ok8ef0B1V7996durmWLWoN0w5r+ZCk6ZwKd6F4M=
 github.com/fyne-io/gl-js v0.0.0-20220119005834-d2da28d9ccfe h1:A/wiwvQ0CAjPkuJytaD+SsXkPU0asQ+guQEIg1BJGX4=
 github.com/fyne-io/gl-js v0.0.0-20220119005834-d2da28d9ccfe/go.mod h1:d4clgH0/GrRwWjRzJJQXxT/h1TyuNSfF/X64zb/3Ggg=
 github.com/fyne-io/glfw-js v0.0.0-20241126112943-313d8a0fe1d0 h1:/1YRWFv9bAWkoo3SuxpFfzpXH0D/bQnTjNXyF4ih7Os=
@@ -203,8 +203,8 @@ github.com/ianlancetaylor/demangle v0.0.0-20200824232613-28f6c0f3b639/go.mod h1:
 github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANytuPF1OarO4DADm73n8=
 github.com/jeandeaual/go-locale v0.0.0-20240223122105-ce5225dcaa49 h1:Po+wkNdMmN+Zj1tDsJQy7mJlPlwGNQd9JZoPjObagf8=
 github.com/jeandeaual/go-locale v0.0.0-20240223122105-ce5225dcaa49/go.mod h1:YiutDnxPRLk5DLUFj6Rw4pRBBURZY07GFr54NdV9mQg=
-github.com/jfreymuth/pulse v0.1.0 h1:KN38/9hoF9PJvP5DpEVhMRKNuwnJUonc8c9ARorRXUA=
-github.com/jfreymuth/pulse v0.1.0/go.mod h1:cpYspI6YljhkUf1WLXLLDmeaaPFc3CnGLjDZf9dZ4no=
+github.com/jfreymuth/pulse v0.1.1 h1:9WLNBNCijmtZ14ZJpatgJPu/NjwAl3TIKItSFnTh+9A=
+github.com/jfreymuth/pulse v0.1.1/go.mod h1:cpYspI6YljhkUf1WLXLLDmeaaPFc3CnGLjDZf9dZ4no=
 github.com/json-iterator/go v1.1.11/go.mod h1:KdQUCv79m/52Kvf8AW2vK1V8akMuk1QjK/uOdHXbAo4=
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
 github.com/jstemmer/go-junit-report v0.9.1/go.mod h1:Brl9GWCQeLvo8nXZwPNNblvFj/XSXhF0NWZEnDohbsk=
