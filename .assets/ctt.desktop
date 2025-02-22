@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Clear Text Trainer
+Comment=Clear Text Trainer teaches you how to head-copy morse code.
+Exec=ctt
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Network;HamRadio
+StartupNotify=true

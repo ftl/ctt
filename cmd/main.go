@@ -5,10 +5,9 @@ import (
 	"github.com/ftl/ctt/pkg/fyneui"
 )
 
-const (
-	appID   = "ft.ctt"
-	version = "develop"
-)
+const appID = "ft.ctt"
+
+var version = "develop"
 
 func main() {
 	app := app.NewApp()
