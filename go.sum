@@ -82,8 +82,8 @@ github.com/fsnotify/fsnotify v1.7.0 h1:8JEhPFa5W2WU7YfeZzPNqzMP6Lwt7L2715Ggo0nos
 github.com/fsnotify/fsnotify v1.7.0/go.mod h1:40Bi/Hjc2AVfZrqy+aj+yEI+/bRxZnMJyTJwOpGvigM=
 github.com/ftl/digimodes v0.1.2 h1:lx4ZKhaFqng/ylPyexMV3KiUjnd+53YoWId0EmKn6R0=
 github.com/ftl/digimodes v0.1.2/go.mod h1:riVoxKI2Q/Nyx2eLXVA+NNANhebefQEPEj14gBgH6dc=
-github.com/ftl/patrix v0.2.0 h1:vMjGEwG3qQ64Lgis4OmCBVjUr3DkPBsqWtGdFqVgmLg=
-github.com/ftl/patrix v0.2.0/go.mod h1:NiM6ok8ef0B1V7996durmWLWoN0w5r+ZCk6ZwKd6F4M=
+github.com/ftl/patrix v0.2.1 h1:KyAZ8c5yXZIvMheeCOo1rp87aj1zlFJr3OvkOSRT960=
+github.com/ftl/patrix v0.2.1/go.mod h1:sEmHGrTam8gzOas/1ZGSEH9pV4Rpf4BuzU9akXNsIHQ=
 github.com/fyne-io/gl-js v0.0.0-20220119005834-d2da28d9ccfe h1:A/wiwvQ0CAjPkuJytaD+SsXkPU0asQ+guQEIg1BJGX4=
 github.com/fyne-io/gl-js v0.0.0-20220119005834-d2da28d9ccfe/go.mod h1:d4clgH0/GrRwWjRzJJQXxT/h1TyuNSfF/X64zb/3Ggg=
 github.com/fyne-io/glfw-js v0.0.0-20241126112943-313d8a0fe1d0 h1:/1YRWFv9bAWkoo3SuxpFfzpXH0D/bQnTjNXyF4ih7Os=

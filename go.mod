@@ -10,7 +10,7 @@ go 1.23.4
 require (
 	fyne.io/fyne/v2 v2.5.4
 	github.com/ftl/digimodes v0.1.2
-	github.com/ftl/patrix v0.2.0
+	github.com/ftl/patrix v0.2.1
 	github.com/stretchr/testify v1.8.4
 )
 
